@@ -1,0 +1,4 @@
+[console_scripts]
+node_listener = my_package.my_node_listener:main
+node_publish = my_package.my_first_node:main
+
