@@ -16,9 +16,9 @@ class Listener(Node):
         self.send_info = self.create_publisher(StringMessage, 'listener', 10)
         t = 1.0
         self.timer_ = self.create_timer(t, self.send_info_to_game)
-        self.size_list = 3
+        self.size_list = 10
         self.start = 1
-        self.end = 10
+        self.end = 90
         self.is_win = False
         self.guessing_list = [rand.randint(self.start, self.end) for i in range(1, self.size_list + 1)]
         
@@ -44,6 +44,7 @@ class Listener(Node):
             item.status_ = 1
             item.data = self.get_name()
             self.send_info.publish(item)
+            self.timer_.cancel()
 
 
 def main(args=None):

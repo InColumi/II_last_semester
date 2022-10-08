@@ -18,7 +18,7 @@ class Game(Node):
         t = 1.0
         self.timer_ = self.create_timer(t, self.foo_publisher)
         self.start = 1
-        self.end = 10
+        self.end = 90
         self.numbers = [i for i in range(self.start, self.end + 1)]
         rand.shuffle(self.numbers)
         
