@@ -20,6 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            "start_game = package_with_nodes.start_node:main",
+            "listener = package_with_nodes.listener:main"
         ],
     },
 )
