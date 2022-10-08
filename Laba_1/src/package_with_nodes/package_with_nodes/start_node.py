@@ -13,7 +13,7 @@ class StringMessage(String):
 
 class Game(Node):
     def __init__(self):
-        super().__init__(f"Games")
+        super().__init__(f"Publisher")
         self.publisher_ = self.create_publisher(StringMessage, 'game', 10)
         time_period = 1.0
         self.timer_ = self.create_timer(time_period, self.foo_publisher)
@@ -31,14 +31,14 @@ class Game(Node):
         self.number_for_guessing = [rand.randint(self.first_nubmer, self.last_nubmer) for i in range(1, self.size_card)]
 
     def foo_subscription(self, msg: StringMessage):
-        self.get_logger().info(f"{msg.data} is win.... Ouuuueee")
+        self.get_logger().info(f"{msg.data} is win!")
         self.timer_.cancel()
         
     
     def foo_publisher(self):
         item = StringMessage()
         if self.unique_numbers:
-            self.get_logger().info(f"foo_publisher {self.unique_numbers}")
+            self.get_logger().info(f"Publisher: {self.unique_numbers}")
             item.data = str(self.unique_numbers.pop())
             self.publisher_.publish(item)
             

@@ -12,14 +12,14 @@ class StringMessage(String):
 
 class Listener(Node):
     def __init__(self):
-        super().__init__(f"Player_{rand.randint(1, 10)}")
+        super().__init__(f"listener_{rand.randint(1, 10)}")
         self.publisher_ = self.create_publisher(StringMessage, 'listener', 10)
         time_period = 1.0
         self.timer_ = self.create_timer(time_period, self.foo_publisher)
         self.create_setting()
         
         self.subscription_ = self.create_subscription(StringMessage, 'game', self.foo_subscription, 10)
-        self.get_logger().info(f"Listener: {self.get_name()} start: {self.number_for_guessing}")
+        self.get_logger().info(f"My numbers: {self.get_name()} start: {self.number_for_guessing}")
     
 
     def create_setting(self):
