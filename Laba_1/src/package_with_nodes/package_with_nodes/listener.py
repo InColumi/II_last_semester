@@ -12,42 +12,39 @@ class StringMessage(String):
 
 class Listener(Node):
     def __init__(self):
-        super().__init__(f"Player_{rand.randint(1, 10)}")
-        self.publisher_ = self.create_publisher(StringMessage, 'listener', 10)
-        time_period = 1.0
-        self.timer_ = self.create_timer(time_period, self.foo_publisher)
-        self.create_setting()
+        super().__init__(f"listener_{rand.randint(1, 10)}")
+        self.send_info = self.create_publisher(StringMessage, 'listener', 10)
+        t = 1.0
+        self.timer_ = self.create_timer(t, self.send_info_to_game)
+        self.size_list = 10
+        self.start = 1
+        self.end = 90
+        self.is_win = False
+        self.guessing_list = [rand.randint(self.start, self.end) for i in range(1, self.size_list + 1)]
         
-        self.subscription_ = self.create_subscription(StringMessage, 'game', self.foo_subscription, 10)
-        self.get_logger().info(f"Listener: {self.get_name()} start: {self.number_for_guessing}")
+        self.take_info = self.create_subscription(StringMessage, 'game', self.check_numbers, 10)
+        self.get_logger().info(f"My numbers: {self.get_name()} start: {self.guessing_list}")
     
 
-    def create_setting(self):
-        self.size_card = 3
-        self.first_nubmer = 1
-        self.last_nubmer = 10
-        self.is_win = False
-        self.number_for_guessing = [rand.randint(self.first_nubmer, self.last_nubmer) for i in range(1, self.size_card + 1)]
-
-
-    def foo_subscription(self, msg: StringMessage):
+    def check_numbers(self, msg: StringMessage):
         number = int(msg.data)
-        while number in self.number_for_guessing:
-            self.number_for_guessing.remove(number)
+        while number in self.guessing_list:
+            self.guessing_list.remove(number)
             self.get_logger().info(f":I have {number}")
-        if self.number_for_guessing:
-            self.get_logger().info(f"Remained: {self.number_for_guessing}")
+        if self.guessing_list:
+            self.get_logger().info(f"Remained: {self.guessing_list}")
         else:
-            self.get_logger().info(f"Number is ended))))")
+            self.get_logger().info(f"End")
             self.is_win = True            
 
     
-    def foo_publisher(self):
+    def send_info_to_game(self):
         if self.is_win:
             item = StringMessage()
             item.status_ = 1
             item.data = self.get_name()
-            self.publisher_.publish(item)
+            self.send_info.publish(item)
+            self.timer_.cancel()
 
 
 def main(args=None):

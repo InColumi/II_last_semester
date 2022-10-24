@@ -13,37 +13,33 @@ class StringMessage(String):
 
 class Game(Node):
     def __init__(self):
-        super().__init__(f"Games")
-        self.publisher_ = self.create_publisher(StringMessage, 'game', 10)
-        time_period = 1.0
-        self.timer_ = self.create_timer(time_period, self.foo_publisher)
-        self.create_setting()
+        super().__init__(f"Publisher")
+        self.send_numbers = self.create_publisher(StringMessage, 'game', 10)
+        t = 1.0
+        self.timer_ = self.create_timer(t, self.foo_publisher)
+        self.start = 1
+        self.end = 90
+        self.numbers = [i for i in range(self.start, self.end + 1)]
+        rand.shuffle(self.numbers)
         
-        self.subscription_ = self.create_subscription(StringMessage, 'listener', self.foo_subscription, 10)
-        self.get_logger().info(f"The game started: {self.unique_numbers}")
-    
-    def create_setting(self):
-        self.size_card = 3
-        self.first_nubmer = 1
-        self.last_nubmer = 10
-        self.unique_numbers = [i for i in range(self.first_nubmer, self.last_nubmer + 1)]
-        rand.shuffle(self.unique_numbers)
-        self.number_for_guessing = [rand.randint(self.first_nubmer, self.last_nubmer) for i in range(1, self.size_card)]
+        self.tacke_info = self.create_subscription(StringMessage, 'listener', self.foo_subscription, 10)
+        self.get_logger().info(f"Start: {self.numbers}")
+
 
     def foo_subscription(self, msg: StringMessage):
-        self.get_logger().info(f"{msg.data} is win.... Ouuuueee")
+        self.get_logger().info(f"{msg.data} is win!")
         self.timer_.cancel()
         
     
     def foo_publisher(self):
         item = StringMessage()
-        if self.unique_numbers:
-            self.get_logger().info(f"foo_publisher {self.unique_numbers}")
-            item.data = str(self.unique_numbers.pop())
-            self.publisher_.publish(item)
+        if self.numbers:
+            self.get_logger().info(f"Publisher: {self.numbers}")
+            item.data = str(self.numbers.pop())
+            self.send_numbers.publish(item)
             
         else:
-            self.get_logger().info(f"Game is over! Number ended...")
+            self.get_logger().info(f"Game is over!")
             self.timer_.cancel()
         
 
