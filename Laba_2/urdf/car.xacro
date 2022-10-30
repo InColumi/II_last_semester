@@ -78,7 +78,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="/home/master/Desktop/II_last_semester/Laba_2/meshes/car.dae"/>
+        <mesh filename="../meshes/car.dae"/>
       </geometry>
     </visual>
 
@@ -209,7 +209,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="/home/master/Desktop/II_last_semester/Laba_2/meshes/hokuyo.dae"/>
+        <mesh filename="../meshes/hokuyo.dae"/>
       </geometry>
     </visual>
 

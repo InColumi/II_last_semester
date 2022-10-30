@@ -94,7 +94,7 @@
               <color sid="emission">0 0 0 1</color>
             </emission>
             <diffuse>
-              <texture texture="./Material_Base_Color_002.png" texcoord="Cube-mesh-map-0"/>
+              <texture texture="Material_Base_Color_002_png-sampler" texcoord="Cube-mesh-map-0"/>
             </diffuse>
             <index_of_refraction>
               <float sid="ior">1.45</float>
@@ -105,12 +105,12 @@
     </effect>
     <effect id="Material_002-effect">
       <profile_COMMON>
-        <newparam sid="./Material_001_Base_Color.png">
+        <newparam sid="Material_001_Base_Color_png-surface">
           <surface type="2D">
             <init_from>Material_001_Base_Color_png</init_from>
           </surface>
         </newparam>
-        <newparam sid="./Material_001_Base_Color.png">
+        <newparam sid="Material_001_Base_Color_png-sampler">
           <sampler2D>
             <source>Material_001_Base_Color_png-surface</source>
           </sampler2D>
@@ -121,7 +121,7 @@
               <color sid="emission">0 0 0 1</color>
             </emission>
             <diffuse>
-              <texture texture="./Material_001_Base_Color.png" texcoord="Cube-mesh-map-0"/>
+              <texture texture="Material_001_Base_Color_png-sampler" texcoord="Cube-mesh-map-0"/>
             </diffuse>
             <index_of_refraction>
               <float sid="ior">1.45</float>
